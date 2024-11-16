@@ -94,6 +94,40 @@ if uploaded_file is not None:
     
     st.pyplot(plt)
 
+# New Features and Visualizations
+
+# Top Products Visualization
+st.subheader("Top Selling Products")
+top_products = df.groupby('Product Name')['Sales'].sum().nlargest(10).reset_index()
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Sales', y='Product Name', data=top_products, palette='viridis')
+plt.title('Top 10 Selling Products')
+st.pyplot(plt)
+
+# Underperforming Products Visualization
+st.subheader("Underperforming Products")
+underperforming_products = df.groupby('Product Name')['Sales'].sum().nsmallest(10).reset_index()
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Sales', y='Product Name', data=underperforming_products, palette='rocket')
+plt.title('Underperforming Products')
+st.pyplot(plt)
+
+# Customer Segmentation Visualization
+st.subheader("Sales by Customer Segment")
+sales_by_segment = df.groupby('Segment')['Sales'].sum().reset_index()
+
+plt.figure(figsize=(8, 5))
+sns.barplot(x='Segment', y='Sales', data=sales_by_segment, palette='Blues')
+plt.title('Sales by Customer Segment')
+st.pyplot(plt)
+
+# Recommendations Display
+st.subheader("Recommendations")
+st.write("1. Tailor marketing efforts towards high-performing product categories.")
+st.write("2. Focus on Consumer segment as it shows significant sales.")
+st.write("3. Optimize stock levels based on sales forecasts to minimize stockouts.")
+st.write("4. Adjust discount strategies based on their impact on profit margins.")
+
 # Continuous Improvement Process Display
 st.subheader("Continuous Improvement Process")
 st.write("1. Regularly update datasets and refine analysis based on new data.")
